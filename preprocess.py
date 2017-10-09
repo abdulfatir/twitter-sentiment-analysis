@@ -87,5 +87,5 @@ if __name__ == '__main__':
             save_to_file.write('%s,%d,%s\n' %
                                (tweet_id, positive, processed_tweet))
             if i % 1000 == 0:
-                write_status(i, total)
+                write_status(i + 1, total)
     save_to_file.close()

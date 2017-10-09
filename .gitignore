@@ -1,3 +1,6 @@
+# Python
+*.pyc
+*.out
 # General
 .DS_Store
 .AppleDouble
