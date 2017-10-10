@@ -57,9 +57,13 @@ if __name__ == '__main__':
             write_status(i + 1, num_tweets)
     num_emojis = num_pos_emojis + num_neg_emojis
     num_unique_words = len(set(all_words))
+    print '\nCalculating frequency distribution'
     freq_dist = FreqDist(all_words)
-    pickle.dump(freq_dist, open(sys.argv[1][:-4] + '-freqdist.pkl', 'wb'))
-    print '\nTweets => Total: %d, Positive: %d, Negative: %d' % (num_tweets, num_pos_tweets, num_neg_tweets)
+    pkl_file_name = sys.argv[1][:-4] + '-freqdist.pkl'
+    pickle.dump(freq_dist, open(pkl_file_name, 'wb'))
+    print 'Saved frequency distribution to %s' % pkl_file_name
+    print '\n[Analysis Statistics]'
+    print 'Tweets => Total: %d, Positive: %d, Negative: %d' % (num_tweets, num_pos_tweets, num_neg_tweets)
     print 'User Mentions => Total: %d, Avg: %.4f, Max: %d' % (num_mentions, num_mentions / float(num_tweets), max_mentions)
     print 'URLs => Total: %d, Avg: %.4f, Max: %d' % (num_urls, num_urls / float(num_tweets), max_urls)
     print 'Emojis => Total: %d, Positive: %d, Negative: %d, Avg: %.4f, Max: %d' % (num_emojis, num_pos_emojis, num_neg_emojis, num_emojis / float(num_tweets), max_emojis)

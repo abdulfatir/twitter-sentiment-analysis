@@ -54,7 +54,7 @@ def preprocess_tweet(tweet):
     tweet = tweet.strip(' "\'')
     # Replace emojis with either EMO_POS or EMO_NEG
     tweet = handle_emojis(tweet)
-    words = tweet.split(' ')
+    words = tweet.split()
 
     for word in words:
         word = preprocess_word(word)
@@ -71,8 +71,12 @@ def write_status(i, total):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print 'Usage: python preprocess.py <raw-CSV>'
+        exit()
     csv_file_name = sys.argv[1]
-    save_to_file = open(sys.argv[2], 'w')
+    processed_file_name = sys.argv[1][:-4] + '-processed.csv'
+    save_to_file = open(processed_file_name, 'w')
 
     with open(csv_file_name, 'r') as csv:
         lines = csv.readlines()
@@ -89,3 +93,4 @@ if __name__ == '__main__':
             if i % 1000 == 0:
                 write_status(i + 1, total)
     save_to_file.close()
+    print '\nSaved processed tweets to: %s' % processed_file_name
