@@ -1,5 +1,6 @@
 import re
 import sys
+from utils import write_status
 
 
 def preprocess_word(word):
@@ -64,10 +65,30 @@ def preprocess_tweet(tweet):
     return ' '.join(processed_tweet)
 
 
-def write_status(i, total):
-    sys.stdout.write('\r')
-    sys.stdout.write('Processing tweet %d/%d' % (i, total))
-    sys.stdout.flush()
+def preprocess_csv(csv_file_name, processed_file_name, test_file=False):
+    save_to_file = open(processed_file_name, 'w')
+
+    with open(csv_file_name, 'r') as csv:
+        lines = csv.readlines()
+        total = len(lines)
+        for i, line in enumerate(lines):
+            tweet_id = line[:line.find(',')]
+            if not test_file:
+                line = line[1 + line.find(','):]
+                positive = int(line[:line.find(',')])
+            line = line[1 + line.find(','):]
+            tweet = line
+            processed_tweet = preprocess_tweet(tweet)
+            if not test_file:
+                save_to_file.write('%s,%d,%s\n' %
+                                   (tweet_id, positive, processed_tweet))
+            else:
+                save_to_file.write('%s,%s\n' %
+                                   (tweet_id, processed_tweet))
+            write_status(i + 1, total)
+    save_to_file.close()
+    print '\nSaved processed tweets to: %s' % processed_file_name
+    return processed_file_name
 
 
 if __name__ == '__main__':
@@ -76,21 +97,4 @@ if __name__ == '__main__':
         exit()
     csv_file_name = sys.argv[1]
     processed_file_name = sys.argv[1][:-4] + '-processed.csv'
-    save_to_file = open(processed_file_name, 'w')
-
-    with open(csv_file_name, 'r') as csv:
-        lines = csv.readlines()
-        total = len(lines)
-        for i, line in enumerate(lines):
-            tweet_id = line[:line.find(',')]
-            line = line[1 + line.find(','):]
-            positive = int(line[:line.find(',')])
-            line = line[1 + line.find(','):]
-            tweet = line
-            processed_tweet = preprocess_tweet(tweet)
-            save_to_file.write('%s,%d,%s\n' %
-                               (tweet_id, positive, processed_tweet))
-            if i % 1000 == 0:
-                write_status(i + 1, total)
-    save_to_file.close()
-    print '\nSaved processed tweets to: %s' % processed_file_name
+    preprocess_csv(csv_file_name, processed_file_name, test_file=True)

@@ -1,7 +1,7 @@
 from nltk import FreqDist
 import pickle
 import sys
-from preprocess import write_status
+from utils import write_status
 
 
 # Takes in a preprocessed CSV file and gives statistics
