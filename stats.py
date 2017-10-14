@@ -15,7 +15,7 @@ def analyze_tweet(tweet):
     result['POS_EMOS'] = tweet.count('EMO_POS')
     result['NEG_EMOS'] = tweet.count('EMO_NEG')
     tweet = tweet.replace('USER_MENTION', '').replace(
-        'URL', '').replace('EMO_POS', '').replace('EMO_NEG', '')
+        'URL', '')
     words = tweet.split()
     result['WORDS'] = len(words)
     return result, words
@@ -60,7 +60,8 @@ if __name__ == '__main__':
     print '\nCalculating frequency distribution'
     freq_dist = FreqDist(all_words)
     pkl_file_name = sys.argv[1][:-4] + '-freqdist.pkl'
-    pickle.dump(freq_dist, open(pkl_file_name, 'wb'))
+    with open(pkl_file_name, 'wb') as pkl_file:
+        pickle.dump(freq_dist, pkl_file)
     print 'Saved frequency distribution to %s' % pkl_file_name
     print '\n[Analysis Statistics]'
     print 'Tweets => Total: %d, Positive: %d, Negative: %d' % (num_tweets, num_pos_tweets, num_neg_tweets)

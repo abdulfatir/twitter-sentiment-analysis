@@ -21,17 +21,17 @@ def is_valid_word(word):
 
 def handle_emojis(tweet):
     # Smile -- :), : ), :-), (:, ( :, (-:, :')
-    tweet = re.sub(r'(:\s?\)|:-\)|\(\s?:|\(-:|:\'\))', 'EMO_POS', tweet)
+    tweet = re.sub(r'(:\s?\)|:-\)|\(\s?:|\(-:|:\'\))', ' EMO_POS ', tweet)
     # Laugh -- :D, : D, :-D, xD, x-D, XD, X-D
-    tweet = re.sub(r'(:\s?D|:-D|x-?D|X-?D)', 'EMO_POS', tweet)
+    tweet = re.sub(r'(:\s?D|:-D|x-?D|X-?D)', ' EMO_POS ', tweet)
     # Love -- <3, :*
-    tweet = re.sub(r'(<3|:\*)', 'EMO_POS', tweet)
+    tweet = re.sub(r'(<3|:\*)', ' EMO_POS ', tweet)
     # Wink -- ;-), ;), ;-D, ;D, (;,  (-;
-    tweet = re.sub(r'(;-?\)|;-?D|\(-?;)', 'EMO_POS', tweet)
+    tweet = re.sub(r'(;-?\)|;-?D|\(-?;)', ' EMO_POS ', tweet)
     # Sad -- :-(, : (, :(, ):, )-:
-    tweet = re.sub(r'(:\s?\(|:-\(|\)\s?:|\)-:)', 'EMO_NEG', tweet)
+    tweet = re.sub(r'(:\s?\(|:-\(|\)\s?:|\)-:)', ' EMO_NEG ', tweet)
     # Cry -- :,(, :'(, :"(
-    tweet = re.sub(r'(:,\(|:\'\(|:"\()', 'EMO_NEG', tweet)
+    tweet = re.sub(r'(:,\(|:\'\(|:"\()', ' EMO_NEG ', tweet)
     return tweet
 
 
@@ -43,8 +43,6 @@ def preprocess_tweet(tweet):
     tweet = re.sub(r'((www\.[\S]+)|(https?://[\S]+))', 'URL', tweet)
     # Replace @handle with the word USER_MENTION
     tweet = re.sub(r'@[\S]+', 'USER_MENTION', tweet)
-    # Replace multiple spaces with a single space
-    tweet = re.sub(r'\s+', ' ', tweet)
     # Replaces #hashtag with hashtag
     tweet = re.sub(r'#(\S+)', r'\1', tweet)
     # Remove RT (retweet)
@@ -55,6 +53,8 @@ def preprocess_tweet(tweet):
     tweet = tweet.strip(' "\'')
     # Replace emojis with either EMO_POS or EMO_NEG
     tweet = handle_emojis(tweet)
+    # Replace multiple spaces with a single space
+    tweet = re.sub(r'\s+', ' ', tweet)
     words = tweet.split()
 
     for word in words:
