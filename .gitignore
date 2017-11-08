@@ -1,6 +1,11 @@
 # Python
 *.pyc
 *.out
+*.csv
+*.h5
+*.hdf5
+glove*
+*.bak
 # General
 .DS_Store
 .AppleDouble

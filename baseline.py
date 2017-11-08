@@ -1,5 +1,10 @@
-import sys
 import utils
+
+TRAIN_PROCESSED_FILE = '../train-processed.csv'
+TEST_PROCESSED_FILE = '../test-processed.csv'
+POSITIVE_WORDS_FILE = 'dataset/positive-words.txt'
+NEGATIVE_WORDS_FILE = 'dataset/negative-words.txt'
+TRAIN = True
 
 
 def classify(processed_csv, test_file=True, **params):
@@ -28,11 +33,10 @@ def classify(processed_csv, test_file=True, **params):
 
 
 if __name__ == '__main__':
-    train = False
-    processed_csv = sys.argv[1]
-    predictions = classify(processed_csv, test_file=(not train), positive_words=sys.argv[2], negative_words=sys.argv[3])
-    if train:
+    if TRAIN:
+        predictions = classify(TRAIN_PROCESSED_FILE, test_file=(not TRAIN), positive_words=POSITIVE_WORDS_FILE, negative_words=NEGATIVE_WORDS_FILE)
         correct = sum([1 for p in predictions if p[1] == p[2]]) * 100.0 / len(predictions)
         print 'Correct = %.2f%%' % correct
     else:
+        predictions = classify(TEST_PROCESSED_FILE, test_file=(not TRAIN), positive_words=POSITIVE_WORDS_FILE, negative_words=NEGATIVE_WORDS_FILE)
         utils.save_results_to_csv(predictions, 'baseline.csv')

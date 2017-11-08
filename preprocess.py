@@ -1,6 +1,7 @@
 import re
 import sys
 from utils import write_status
+from nltk.stem.porter import PorterStemmer
 
 
 def preprocess_word(word):
@@ -40,11 +41,11 @@ def preprocess_tweet(tweet):
     # Convert to lower case
     tweet = tweet.lower()
     # Replaces URLs with the word URL
-    tweet = re.sub(r'((www\.[\S]+)|(https?://[\S]+))', 'URL', tweet)
+    tweet = re.sub(r'((www\.[\S]+)|(https?://[\S]+))', ' URL ', tweet)
     # Replace @handle with the word USER_MENTION
     tweet = re.sub(r'@[\S]+', 'USER_MENTION', tweet)
     # Replaces #hashtag with hashtag
-    tweet = re.sub(r'#(\S+)', r'\1', tweet)
+    tweet = re.sub(r'#(\S+)', r' \1 ', tweet)
     # Remove RT (retweet)
     tweet = re.sub(r'\brt\b', '', tweet)
     # Replace 2+ dots with space
@@ -60,6 +61,8 @@ def preprocess_tweet(tweet):
     for word in words:
         word = preprocess_word(word)
         if is_valid_word(word):
+            if use_stemmer:
+                word = str(porter_stemmer.stem(word))
             processed_tweet.append(word)
 
     return ' '.join(processed_tweet)
@@ -95,6 +98,10 @@ if __name__ == '__main__':
     if len(sys.argv) != 2:
         print 'Usage: python preprocess.py <raw-CSV>'
         exit()
+    use_stemmer = False
     csv_file_name = sys.argv[1]
     processed_file_name = sys.argv[1][:-4] + '-processed.csv'
-    preprocess_csv(csv_file_name, processed_file_name, test_file=True)
+    if use_stemmer:
+        porter_stemmer = PorterStemmer()
+        processed_file_name = sys.argv[1][:-4] + '-processed-stemmed.csv'
+    preprocess_csv(csv_file_name, processed_file_name, test_file=False)

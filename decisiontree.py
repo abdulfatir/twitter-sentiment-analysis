@@ -1,7 +1,7 @@
 import utils
 import random
 import numpy as np
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.tree import DecisionTreeClassifier
 from scipy.sparse import lil_matrix
 from sklearn.feature_extraction.text import TfidfTransformer
 
@@ -116,7 +116,7 @@ if __name__ == '__main__':
         train_tweets = tweets
     del tweets
     print 'Extracting features & training batches'
-    clf = MultinomialNB()
+    clf = DecisionTreeClassifier(max_depth=25)
     batch_size = len(train_tweets)
     i = 1
     n_train_batches = int(np.ceil(len(train_tweets) / float(batch_size)))
@@ -125,7 +125,7 @@ if __name__ == '__main__':
         i += 1
         tfidf = apply_tf_idf(training_set_X)
         training_set_X = tfidf.transform(training_set_X)
-        clf.partial_fit(training_set_X, training_set_y, classes=[0, 1])
+        clf.fit(training_set_X, training_set_y)
     print '\n'
     print 'Testing'
     if TRAIN:
@@ -154,5 +154,5 @@ if __name__ == '__main__':
             i += 1
         predictions = [(str(j), int(predictions[j]))
                        for j in range(len(test_tweets))]
-        utils.save_results_to_csv(predictions, 'naivebayes.csv')
-        print '\nSaved to naivebayes.csv'
+        utils.save_results_to_csv(predictions, 'decisiontree.csv')
+        print '\nSaved to decisiontree.csv'
