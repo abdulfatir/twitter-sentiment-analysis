@@ -123,8 +123,9 @@ if __name__ == '__main__':
     for training_set_X, training_set_y in extract_features(train_tweets, test_file=False, feat_type=FEAT_TYPE, batch_size=batch_size):
         utils.write_status(i, n_train_batches)
         i += 1
-        tfidf = apply_tf_idf(training_set_X)
-        training_set_X = tfidf.transform(training_set_X)
+        if FEAT_TYPE == 'frequency':
+            tfidf = apply_tf_idf(training_set_X)
+            training_set_X = tfidf.transform(training_set_X)
         clf.fit(training_set_X, training_set_y)
     print '\n'
     print 'Testing'
@@ -134,7 +135,8 @@ if __name__ == '__main__':
         batch_size = len(val_tweets)
         n_val_batches = int(np.ceil(len(val_tweets) / float(batch_size)))
         for val_set_X, val_set_y in extract_features(val_tweets, test_file=False, feat_type=FEAT_TYPE, batch_size=batch_size):
-            val_set_X = tfidf.transform(val_set_X)
+            if FEAT_TYPE == 'frequency':
+                val_set_X = tfidf.transform(val_set_X)
             prediction = clf.predict(val_set_X)
             correct += np.sum(prediction == val_set_y)
             utils.write_status(i, n_val_batches)
@@ -148,6 +150,8 @@ if __name__ == '__main__':
         print 'Predicting batches'
         i = 1
         for test_set_X, _ in extract_features(test_tweets, test_file=True, feat_type=FEAT_TYPE):
+            if FEAT_TYPE == 'frequency':
+                test_set_X = tfidf.transform(test_set_X)
             prediction = clf.predict(test_set_X)
             predictions = np.concatenate((predictions, prediction))
             utils.write_status(i, n_test_batches)

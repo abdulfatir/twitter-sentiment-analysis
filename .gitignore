@@ -6,6 +6,7 @@
 *.hdf5
 glove*
 *.bak
+.ipynb*
 # General
 .DS_Store
 .AppleDouble
