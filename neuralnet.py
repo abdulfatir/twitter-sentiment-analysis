@@ -12,7 +12,7 @@ TEST_PROCESSED_FILE = '../test-processed.csv'
 TRAIN = True
 UNIGRAM_SIZE = 15000
 VOCAB_SIZE = UNIGRAM_SIZE
-USE_BIGRAMS = True
+USE_BIGRAMS = False
 if USE_BIGRAMS:
     BIGRAM_SIZE = 10000
     VOCAB_SIZE = UNIGRAM_SIZE + BIGRAM_SIZE
@@ -108,7 +108,8 @@ def evaluate_model(model, val_tweets):
 if __name__ == '__main__':
     np.random.seed(1337)
     unigrams = utils.top_n_words(FREQ_DIST_FILE, UNIGRAM_SIZE)
-    bigrams = utils.top_n_bigrams(BI_FREQ_DIST_FILE, BIGRAM_SIZE)
+    if USE_BIGRAMS:
+        bigrams = utils.top_n_bigrams(BI_FREQ_DIST_FILE, BIGRAM_SIZE)
     tweets = process_tweets(TRAIN_PROCESSED_FILE, test_file=False)
     if TRAIN:
         train_tweets, val_tweets = utils.split_data(tweets)
