@@ -5,6 +5,9 @@
 *.h5
 *.hdf5
 glove*
+*.npy
+train-labels.txt
+*.pkl
 *.bak
 .ipynb*
 # General
