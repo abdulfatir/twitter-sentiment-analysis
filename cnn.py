@@ -129,4 +129,4 @@ if __name__ == '__main__':
         test_tweets = pad_sequences(test_tweets, maxlen=max_length, padding='post')
         predictions = model.predict(test_tweets, batch_size=128, verbose=1)
         results = zip(map(str, range(len(test_tweets))), np.round(predictions[:, 0]).astype(int))
-        utils.save_results_to_csv(results, 'glove-cnn-%d-%d-%d.csv' % (vocab_size, max_length, filters))
+        utils.save_results_to_csv(results, 'cnn.csv')

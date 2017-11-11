@@ -77,7 +77,7 @@ if __name__ == '__main__':
     np.random.seed(1337)
     vocab_size = 90000
     batch_size = 500
-    max_length = 20
+    max_length = 40
     filters = 600
     kernel_size = 3
     vocab = utils.top_n_words(FREQ_DIST_FILE, vocab_size, shift=1)
@@ -96,8 +96,8 @@ if __name__ == '__main__':
         model = Sequential()
         model.add(Embedding(vocab_size + 1, dim, weights=[embedding_matrix], input_length=max_length))
         model.add(Dropout(0.4))
-        model.add(LSTM(100))
-        model.add(Dense(600))
+        model.add(LSTM(128))
+        model.add(Dense(64))
         model.add(Dropout(0.5))
         model.add(Activation('relu'))
         model.add(Dense(1))
@@ -115,4 +115,4 @@ if __name__ == '__main__':
         test_tweets = pad_sequences(test_tweets, maxlen=max_length, padding='post')
         predictions = model.predict(test_tweets, batch_size=128, verbose=1)
         results = zip(map(str, range(len(test_tweets))), np.round(predictions[:, 0]).astype(int))
-        utils.save_results_to_csv(results, 'glove-cnn-%d-%d-%d.csv' % (vocab_size, max_length, filters))
+        utils.save_results_to_csv(results, 'lstm.csv')
