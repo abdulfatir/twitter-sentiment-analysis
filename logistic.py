@@ -5,6 +5,8 @@ import utils
 import random
 import numpy as np
 
+# Performs classification using Logistic Regression.
+
 FREQ_DIST_FILE = '../train-processed-freqdist.pkl'
 BI_FREQ_DIST_FILE = '../train-processed-freqdist-bi.pkl'
 TRAIN_PROCESSED_FILE = '../train-processed.csv'

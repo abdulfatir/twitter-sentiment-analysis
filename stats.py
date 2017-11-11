@@ -6,7 +6,8 @@ from collections import Counter
 
 
 # Takes in a preprocessed CSV file and gives statistics
-# Writes the frequency distribution of words to a pickle file
+# Writes the frequency distribution of words and bigrams
+# to pickle files.
 
 
 def analyze_tweet(tweet):

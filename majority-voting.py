@@ -2,6 +2,8 @@ import glob
 import numpy as np
 import utils
 
+# Takes majority vote of a number of CSV prediction files.
+
 NUM_PREDICTION_ROWS = 200000
 
 

@@ -5,13 +5,19 @@ from sklearn.tree import DecisionTreeClassifier
 from scipy.sparse import lil_matrix
 from sklearn.feature_extraction.text import TfidfTransformer
 
+# Performs classification using Decision Tree.
+
 FREQ_DIST_FILE = '../train-processed-freqdist.pkl'
 BI_FREQ_DIST_FILE = '../train-processed-freqdist-bi.pkl'
 TRAIN_PROCESSED_FILE = '../train-processed.csv'
 TEST_PROCESSED_FILE = '../test-processed.csv'
+
+# True while training.
 TRAIN = True
 UNIGRAM_SIZE = 15000
 VOCAB_SIZE = UNIGRAM_SIZE
+
+# If using bigrams.
 USE_BIGRAMS = False
 if USE_BIGRAMS:
     BIGRAM_SIZE = 10000
@@ -67,6 +73,9 @@ def extract_features(tweets, batch_size=500, test_file=True, feat_type='presence
 
 
 def apply_tf_idf(X):
+    """
+    Fits X for TF-IDF vectorization and returns the transformer.
+    """
     transformer = TfidfTransformer(smooth_idf=True, sublinear_tf=True, use_idf=True)
     transformer.fit(X)
     return transformer

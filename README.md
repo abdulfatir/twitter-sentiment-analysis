@@ -36,7 +36,7 @@ For all the methods that follow, change the values of `TRAIN_PROCESSED_FILE`, `T
 4. Run `naivebayes.py`. With `TRAIN = True` it will show the accuracy results on 10% validation dataset.
 
 ### Maximum Entropy
-5. Run `logistic.py` to run logistic regression model OR run `maxent-nltk.py` to run MaxEnt model of NLTK. With `TRAIN = True` it will show the accuracy results on 10% validation dataset.
+5. Run `logistic.py` to run logistic regression model OR run `maxent-nltk.py <>` to run MaxEnt model of NLTK. With `TRAIN = True` it will show the accuracy results on 10% validation dataset.
 
 ### Decision Tree
 6. Run `decisiontree.py`. With `TRAIN = True` it will show the accuracy results on 10% validation dataset.
@@ -69,3 +69,4 @@ For all the methods that follow, change the values of `TRAIN_PROCESSED_FILE`, `T
 * `dataset/positive-words.txt`: List of positive words.
 * `dataset/negative-words.txt`: List of negative words.
 * `dataset/glove-seeds.txt`: GloVe words vectors from StanfordNLP which match our dataset for seeding word embeddings.
+* `Plots.ipynb`: IPython notebook used to generate plots present in report.

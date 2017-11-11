@@ -4,6 +4,8 @@ from keras.models import load_model, Model
 import utils
 from keras.preprocessing.sequence import pad_sequences
 
+# Extracts dense vector features from penultimate layer of CNN model.
+
 FREQ_DIST_FILE = '../train-processed-freqdist.pkl'
 BI_FREQ_DIST_FILE = '../train-processed-freqdist-bi.pkl'
 TRAIN_PROCESSED_FILE = '../train-processed.csv'

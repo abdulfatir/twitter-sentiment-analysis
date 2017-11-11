@@ -8,6 +8,8 @@ from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 import utils
 from keras.preprocessing.sequence import pad_sequences
 
+# Performs classification using CNN.
+
 FREQ_DIST_FILE = '../train-processed-freqdist.pkl'
 BI_FREQ_DIST_FILE = '../train-processed-freqdist-bi.pkl'
 TRAIN_PROCESSED_FILE = '../train-processed.csv'
@@ -17,6 +19,9 @@ dim = 200
 
 
 def get_glove_vectors(vocab):
+    """
+    Extracts glove vectors from seed file only for words present in vocab.
+    """
     print 'Looking for GLOVE seeds'
     glove_vectors = {}
     found = 0
@@ -34,6 +39,10 @@ def get_glove_vectors(vocab):
 
 
 def get_feature_vector(tweet):
+    """
+    Generates a feature vector for each tweet where each word is
+    represented by integer index based on rank in vocabulary.
+    """
     words = tweet.split()
     feature_vector = []
     for i in range(len(words) - 1):
@@ -47,6 +56,9 @@ def get_feature_vector(tweet):
 
 
 def process_tweets(csv_file, test_file=True):
+    """
+    Generates training X, y pairs.
+    """
     tweets = []
     labels = []
     print 'Generating feature vectors'
@@ -80,7 +92,9 @@ if __name__ == '__main__':
     vocab = utils.top_n_words(FREQ_DIST_FILE, vocab_size, shift=1)
     glove_vectors = get_glove_vectors(vocab)
     tweets, labels = process_tweets(TRAIN_PROCESSED_FILE, test_file=False)
+    # Create and embedding matrix
     embedding_matrix = np.random.randn(vocab_size + 1, dim) * 0.01
+    # Seed it with GloVe vectors
     for word, i in vocab.items():
         glove_vector = glove_vectors.get(word)
         if glove_vector is not None:

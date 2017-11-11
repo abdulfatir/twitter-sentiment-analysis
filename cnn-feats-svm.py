@@ -6,6 +6,9 @@ import numpy as np
 import pickle
 import utils
 
+# Performs SVM classification on features extracted from penultimate layer of CNN model.
+
+
 TRAIN_FEATURES_FILE = './train-feats.npy'
 TRAIN_LABELS_FILE = './train-labels.txt'
 TEST_FEATURES_FILE = './test-feats.npy'
