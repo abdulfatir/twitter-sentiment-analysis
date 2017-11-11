@@ -12,7 +12,7 @@ TEST_FEATURES_FILE = './test-feats.npy'
 CLASSIFIER = 'SVM'
 MODEL_FILE = 'cnn-feats-%s.pkl' % CLASSIFIER
 TRAIN = True
-C = 10
+C = 1
 MAX_ITER = 1000
 
 if TRAIN:
