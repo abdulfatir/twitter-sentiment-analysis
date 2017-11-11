@@ -5,7 +5,6 @@ from keras.layers import Dense, Dropout, Activation
 from keras.layers import Embedding, Flatten
 from keras.layers import Conv1D, GlobalMaxPooling1D
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
-from keras.optimizers import SGD
 import utils
 from keras.preprocessing.sequence import pad_sequences
 
@@ -37,19 +36,13 @@ def get_glove_vectors(vocab):
 def get_feature_vector(tweet):
     words = tweet.split()
     feature_vector = []
-    bi_feature_vector = []
     for i in range(len(words) - 1):
         word = words[i]
         if vocab.get(word) is not None:
             feature_vector.append(vocab.get(word))
-        if add_bigrams:
-            next_word = words[i + 1]
-            if bigram_vocab.get((word, next_word)) is not None:
-                bi_feature_vector.append(bigram_vocab.get((word, next_word)))
     if len(words) >= 1:
         if vocab.get(words[-1]) is not None:
             feature_vector.append(vocab.get(words[-1]))
-    feature_vector = feature_vector + bi_feature_vector
     return feature_vector
 
 
@@ -80,18 +73,12 @@ if __name__ == '__main__':
     train = len(sys.argv) == 1
     np.random.seed(1337)
     vocab_size = 90000
-    bigram_size = 20000
     batch_size = 500
     max_length = 40
     filters = 600
     kernel_size = 3
-    add_bigrams = False
     vocab = utils.top_n_words(FREQ_DIST_FILE, vocab_size, shift=1)
     glove_vectors = get_glove_vectors(vocab)
-    if add_bigrams:
-        bigram_vocab = utils.top_n_bigrams(BI_FREQ_DIST_FILE, bigram_size, shift=(vocab_size + 1))
-        vocab_size += bigram_size
-        max_length = 30
     tweets, labels = process_tweets(TRAIN_PROCESSED_FILE, test_file=False)
     embedding_matrix = np.random.randn(vocab_size + 1, dim) * 0.01
     for word, i in vocab.items():
@@ -116,7 +103,6 @@ if __name__ == '__main__':
         model.add(Activation('relu'))
         model.add(Dense(1))
         model.add(Activation('sigmoid'))
-        sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
         model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
         filepath = "./models/4cnn-{epoch:02d}-{loss:0.3f}-{acc:0.3f}-{val_loss:0.3f}-{val_acc:0.3f}.hdf5"
         checkpoint = ModelCheckpoint(filepath, monitor="loss", verbose=1, save_best_only=True, mode='min')
