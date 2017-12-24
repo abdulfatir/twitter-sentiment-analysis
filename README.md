@@ -17,6 +17,7 @@ The library requirements specific to some methods are:
 * `xgboost` for XGBoost.
 
 **Note**: It is recommended to use Anaconda distribution of Python.
+**Note**: The [report](https://github.com/abdulfatir/twitter-sentiment-analysis/tree/master/docs/report.pdf) for this project can be found in `docs/`.
 
 ## Usage
 
