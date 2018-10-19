@@ -69,28 +69,22 @@ def preprocess_tweet(tweet):
 
 
 def preprocess_csv(csv_file_name, processed_file_name, test_file=False):
-    save_to_file = open(processed_file_name, 'w')
 
-    with open(csv_file_name, 'r') as csv:
-        lines = csv.readlines()
-        total = len(lines)
-        for i, line in enumerate(lines):
-            tweet_id = line[:line.find(',')]
-            if not test_file:
-                line = line[1 + line.find(','):]
-                positive = int(line[:line.find(',')])
-            line = line[1 + line.find(','):]
-            tweet = line
-            processed_tweet = preprocess_tweet(tweet)
-            if not test_file:
-                save_to_file.write('%s,%d,%s\n' %
-                                   (tweet_id, positive, processed_tweet))
-            else:
-                save_to_file.write('%s,%s\n' %
-                                   (tweet_id, processed_tweet))
-            write_status(i + 1, total)
-    save_to_file.close()
+    #Reading CSV without headers
+    unprocessed_data = pd.read_csv(csv_file_name, header=None)
+
+    if not test_file:
+        # Take third column in train file
+        processed_data = unprocessed_data.iloc[:,2].apply(lambda x: preprocess_tweet(x))
+    else:
+        # Take second column for test file
+        processed_data = unprocessed_data.iloc[:, 1].apply(lambda x: preprocess_tweet(x))
+
+    final_df = pd.concat([unprocessed_data, processed_data], axis=0)
+
+    final_df.to_csv(processed_file_name, index=False, header=False)
     print '\nSaved processed tweets to: %s' % processed_file_name
+
     return processed_file_name
 
 
