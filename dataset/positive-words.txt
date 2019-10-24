@@ -1,8 +1,11 @@
 a+
+a++
 abound
+abounded
 abounds
 abundance
 abundant
+access
 accessable
 accessible
 acclaim
@@ -23,6 +26,7 @@ achievement
 achievements
 achievible
 acumen
+adapt
 adaptable
 adaptive
 adequate
@@ -38,6 +42,8 @@ adorable
 adore
 adored
 adorer
+adorn
+adorned
 adoring
 adoringly
 adroit
@@ -111,6 +117,7 @@ apotheosis
 appeal
 appealing
 applaud
+applause
 appreciable
 appreciate
 appreciated
@@ -1519,6 +1526,7 @@ revitalize
 revival
 revive
 revives
+revolution
 revolutionary
 revolutionize
 revolutionized
@@ -1615,7 +1623,6 @@ skill
 skilled
 skillful
 skillfully
-slammin
 sleek
 slick
 smart
@@ -1780,6 +1787,7 @@ tantalize
 tantalizing
 tantalizingly
 tempt
+tempted
 tempting
 temptingly
 tenacious
@@ -1791,6 +1799,7 @@ terrific
 terrifically
 thank
 thankful
+thankfully
 thinner
 thoughtful
 thoughtfully
