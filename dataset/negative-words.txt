@@ -1,5 +1,4 @@
 2-faced
-2-faces
 abnormal
 abolish
 abominable
@@ -9,11 +8,13 @@ abomination
 abort
 aborted
 aborts
+aborting
 abrade
 abrasive
 abrupt
 abruptly
 abscond
+absconding
 absence
 absent-minded
 absentee
@@ -56,6 +57,7 @@ adamantly
 addict
 addicted
 addicting
+addictive
 addicts
 admonish
 admonisher
@@ -207,6 +209,7 @@ atrocity
 atrophy
 attack
 attacks
+attacking
 audacious
 audaciously
 audaciousness
@@ -332,6 +335,7 @@ bid-rigging
 bigotries
 bigotry
 bitch
+bitching
 bitchy
 biting
 bitingly
@@ -432,6 +436,7 @@ breaking
 breaks
 breakup
 breakups
+breakout
 bribery
 brimstone
 bristle
@@ -469,7 +474,6 @@ bull****
 bull----
 bullies
 bullshit
-bullshyt
 bully
 bullying
 bullyingly
@@ -3005,7 +3009,6 @@ nauseate
 nauseates
 nauseating
 nauseatingly
-naïve
 nebulous
 nebulously
 needless
@@ -3042,7 +3045,6 @@ noise
 noises
 noisier
 noisy
-non-confidence
 nonexistent
 nonresponsive
 nonsense
@@ -3151,6 +3153,9 @@ over-priced
 over-valuation
 overact
 overacted
+over-react
+over-reacted
+over-reacting
 overawe
 overbalance
 overbalanced
